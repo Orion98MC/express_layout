@@ -30,14 +30,15 @@ function render(template, options, cb) {
   , app = this.req.app
   ;
 
-  cb = cb || function (error, result) {
-    if (error) { self.send(500, error); }
-    else self.send(result);
+  cb = cb || function(error, result){
+    if (error) return self.req.next(error);
+    self.send(result);
   };
-  
+
   var _layout = options.layout || layout;
     
   app.render(template, options || {}, function (error, result) {
+    if (error) return self.req.next(error); 
     app.render(_layout, { yield: result }, cb);
   });
 }
