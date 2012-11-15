@@ -35,7 +35,8 @@ function render(template, options, cb) {
     self.send(result);
   };
 
-  var _layout = options.layout || layout;
+  var _layout = options.layout || layout; 
+  delete(options.layout);
     
   app.render(template, options || {}, function (error, result) {
     if (error) return self.req.next(error); 

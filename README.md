@@ -1,10 +1,10 @@
 ## Description
 
-expressjs / ejs simple layout addon for expressjs 3+
+expressjs simple layout addon for expressjs 3+
 
 ## Usage
 ```js
-require('express_ejs_layout');
+require('express_layout');
     
 /* ...somewhere in your controller code... */
 
@@ -12,21 +12,31 @@ require('express_ejs_layout');
 ```
 
 ## Defaults
-  * The default layout is 'layout.ejs'
-  * Layouts are assumed to be located in app.get('views')
+
+  * The default layout is 'layout'
+  * The layouts must be located in the app.get('views') directory
     
 ## Settings
-You can set the layout with setLayout():
+You can set the global layout with setLayout():
 
 ```js
-require('express_ejs_layout').setLayout('MyLayout.ejs');
+require('express_layout').setLayout('MyLayout.ejs');
+```
+
+Or, you can use a specific layout by setting the layout option:
+
+```js
+res.renderInLayout('users', {
+  layout: 'UsersLayout', 
+  accounts: accounts
+});
 ```
   
 ## Yield
 
-The layout is assumed to have a "yield" local, where the view content will be nested
+The layout is assumed to have a "yield" local, where the view's content will be nested
 
-Layout example:
+Layout example in ejs format:
 ```html
 <html>
 <body>
