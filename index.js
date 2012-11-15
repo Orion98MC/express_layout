@@ -21,17 +21,8 @@
 
 var 
   http = require('http')
-, ejs = require('ejs')
-, fs = require('fs')
-
-, layout = 'layout.ejs'
-, cached
+, layout = 'layout'
 ;
-
-function layoutFn (app) {
-  cached = cached || ejs.compile(require('fs').readFileSync([app.get('views'), layout].join('/'), 'utf8'));
-  return cached;
-}
 
 function render(template, options, cb) {
   var 
@@ -43,9 +34,11 @@ function render(template, options, cb) {
     if (error) { self.send(500, error); }
     else self.send(result);
   };
+  
+  var _layout = options.layout || layout;
     
   app.render(template, options || {}, function (error, result) {
-    cb(error, layoutFn(app)({ yield: result }));
+    app.render(_layout, { yield: result }, cb);
   });
 }
 
@@ -55,5 +48,4 @@ exports.render = render;
   
 exports.setLayout = function (alayout) { 
   layout = alayout; 
-  cached = null;
 };
