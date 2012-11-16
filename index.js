@@ -37,10 +37,13 @@ function render(template, options, cb) {
 
   var _layout = options.layout || layout; 
   delete(options.layout);
+  
+  var _options = options || {}
     
-  app.render(template, options || {}, function (error, result) {
+  app.render(template, _options, function (error, result) {
     if (error) return self.req.next(error); 
-    app.render(_layout, { yield: result }, cb);
+    _options.yield = result;
+    app.render(_layout, _options, cb);
   });
 }
 

@@ -14,7 +14,8 @@ require('express_layout');
 ## Defaults
 
   * The default layout is 'layout'
-  * The layouts must be located in the app.get('views') directory
+  
+Layouts must reside in a path that is resolved by express like any other view.
     
 ## Settings
 You can set the global layout with setLayout():
@@ -31,6 +32,8 @@ res.renderInLayout('users', {
   accounts: accounts
 });
 ```
+
+Options are passed to the layout and the template as well.
   
 ## Yield
 
