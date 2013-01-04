@@ -29,13 +29,15 @@ function render(template, options, cb) {
     self = this
   , app = this.req.app
   ;
+  
+  options = options || {};
 
   cb = cb || function(error, result){
     if (error) return self.req.next(error);
     self.send(result);
   };
 
-  var _layout = options.layout || layout; 
+  var _layout = this.req.layout || options.layout || layout; 
   delete(options.layout);
   
   var _options = options || {}
