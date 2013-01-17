@@ -31,8 +31,9 @@ function render(template, options, cb) {
   ;
   
   options = options || {};
+  options._locals = self.locals;
 
-  cb = cb || function(error, result){
+  var cb = cb || function(error, result){
     if (error) return self.req.next(error);
     self.send(result);
   };
@@ -40,19 +41,18 @@ function render(template, options, cb) {
   var _layout = this.req.layout || options.layout || layout; 
   delete(options.layout);
   
-  var _options = options || {}
-    
-  app.render(template, _options, function (error, result) {
+  app.render(template, options, function (error, result) {
     if (error) return self.req.next(error); 
-    _options.yield = result;
-    app.render(_layout, _options, cb);
+    options.yield = result;
+    app.render(_layout, options, cb);
   });
 }
 
 http.ServerResponse.prototype.renderInLayout = render;
 
-exports.render = render;
-  
-exports.setLayout = function (alayout) { 
-  layout = alayout; 
+module.exports = {
+  render: render,
+  setLayout: function (alayout) { 
+    layout = alayout; 
+  }
 };

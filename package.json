@@ -1,6 +1,6 @@
 {
   "name": "express_layout",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Express3+ layout handling",
   "main": "index.js",
   "scripts": {
@@ -16,8 +16,9 @@
     "layout",
     "ejs"
   ],
-  "author": "Thierry Passeron",
+  "author": {
+    "name": "Thierry Passeron"
+  },
   "license": "MIT",
   "readmeFilename": "README.md",
-  "gitHead": "ad7ae675d62636f4b435bf0a4ff345b10bcdb787"
 }

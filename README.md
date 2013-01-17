@@ -8,8 +8,26 @@ require('express_layout');
     
 /* ...somewhere in your controller code... */
 
-  res.renderInLayout('users', {accounts: accounts}); // renders the 'users' view within the default layout ('layout.ejs')
+  res.renderInLayout('users', {accounts: accounts}); // renders the 'users' view within the default layout ('layout')
 ```
+
+If you wish you can even replace the res.render by the layout render:
+
+```js
+var express_layout = require('express_layout');
+    
+/* declare a middleware */
+
+app.use(function (req, res, next) {
+  res.render = express_layout.render.bind(res);
+  next();
+});
+
+/* ...somewhere in your controller code... */
+
+  res.render('users', {accounts: accounts}); // renders the 'users' view within the default layout ('layout')
+```
+
 
 ## Defaults
 
@@ -29,6 +47,15 @@ Or, you can use a specific layout by setting the layout option:
 ```js
 res.renderInLayout('users', {
   layout: 'UsersLayout', 
+  accounts: accounts
+});
+```
+
+Or, you can use a specific layout by setting the res.layout:
+
+```js
+res.layout = 'UsersLayout';
+res.renderInLayout('users', {
   accounts: accounts
 });
 ```
